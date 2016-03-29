@@ -35,5 +35,16 @@ namespace Risc
 			public int get_unit_count() { return unit_count; }
 			public void set_unit_count(int set_unit_count) { unit_count = set_unit_count; }
 		}
+
+		public void end_turn(Color color_moved)
+		{
+			int owned_tiles = 0;
+
+			for (int i = 0; i < map.Count(); ++i)
+				for (int j = 0; j < map[i].Count(); ++j)
+					if (map[i][j].get_color() == color_moved) ++owned_tiles;
+
+			// now add owned_tiles new units to color_moved's total units
+		}
 	}
 }
