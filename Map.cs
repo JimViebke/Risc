@@ -11,6 +11,7 @@ namespace Risc
 
 		public Map(int height, int width)
 		{
+			map = new List<List<Tile>>();
 			for (int i = 0; i < height; ++i)
 			{
 				List<Tile> row = new List<Tile>();
