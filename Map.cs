@@ -21,7 +21,7 @@ namespace Risc
 
 
 
-		private enum Color { empty, blocked, red, green, blue, yellow, orange, purple };
+		public enum Color { empty, blocked, red, green, blue, yellow, orange, purple };
 
 		private class Tile
 		{
