@@ -41,10 +41,10 @@ namespace TileMapPrototype
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (i < 6 && j == 0 )
+                    if (i < 6 && j == 0)
                     {
                         //background = "Gray";
-                        
+
                         //isButtonEnabled = false;
                     }
                     else
@@ -69,8 +69,8 @@ namespace TileMapPrototype
             }
 
             Board.ElementAt(72).Value = 10;
-              Board.ElementAt(72).Background = "Blue";
-            
+            Board.ElementAt(72).Background = "Blue";
+
             DataContext = Board;
         }
 
@@ -81,7 +81,7 @@ namespace TileMapPrototype
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             System.Windows.Controls.Button cb = e.Source as System.Windows.Controls.Button;
             TileModel tileClicked = cb.DataContext as TileModel;
             if (tileClicked.Value != 0 && SelectedTile == null)
@@ -99,7 +99,7 @@ namespace TileMapPrototype
                     tileClicked.Background = "Blue";
                     SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
                 }
-                else 
+                else
                 {
                     tileClicked.Value += SelectedTile.Value - 1;
                     tileClicked.Background = "Blue";
@@ -108,14 +108,15 @@ namespace TileMapPrototype
                 SelectedTile = null;
                 PaintAllTiles();
             }
-            else 
+            else
             {
                 PaintAllTiles();
             }
 
-    
+
         }
-        public void PaintAllTiles() {
+        public void PaintAllTiles()
+        {
             foreach (var tile in Board)
             {
                 if (tile.Background != "Blue")
@@ -185,80 +186,5 @@ namespace TileMapPrototype
                 }
             }
         }
-    }
-
-    
- 
-
-    public class TileModel : INotifyPropertyChanged
-    {
-        public int Row { get; set; }
-
-        public int Column { get; set; }
-
-        private int _value;
-        public int Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                NotifyPropertyChange("Value");
-
-                if (value > 0)
-                {
-                    _background = "Blue";
-                    NotifyPropertyChange("Background");
-
-                    _foreground = "White";
-                    NotifyPropertyChange("Foreground");
-                }
-            }
-        }
-
-        private string _background;
-        public string Background
-        {
-            get { return _background; }
-            set
-            {
-                _background = value;
-                NotifyPropertyChange("Background");
-            }
-        }
-
-        private string _foreground;
-        public string Foreground
-        {
-            get { return _foreground; }
-            set
-            {
-                _foreground = value;
-                NotifyPropertyChange("Foreground");
-            }
-        }
-
-        private bool _isButtonEnabled;
-        public bool IsButtonEnabled
-        {
-            get { return _isButtonEnabled; }
-            set
-            {
-                _isButtonEnabled = value;
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChange(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public Action<TileModel> OnValueChanged { get; set; }
-
-       
-
     }
 }
