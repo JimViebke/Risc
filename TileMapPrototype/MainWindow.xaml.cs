@@ -28,6 +28,11 @@ namespace TileMapPrototype
 		private int board_height = 9;
 		private int board_width = 9;
 
+		public const string BLUE = "Blue";
+		public const string GREEN = "Green";
+		public const string WHITE = "White";
+		public const string TRANSPARENT = "Transparent";
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -52,8 +57,8 @@ namespace TileMapPrototype
 					}
 					else
 					{
-						background = "Green";
-						foreground = "Transparent";
+						background = GREEN;
+						foreground = TRANSPARENT;
 						isButtonEnabled = true;
 					}
 
@@ -72,7 +77,7 @@ namespace TileMapPrototype
 			}
 
 			Board.ElementAt(72).Value = 10;
-			Board.ElementAt(72).Background = "Blue";
+			Board.ElementAt(72).Background = BLUE;
 
 			DataContext = Board;
 		}
@@ -88,22 +93,22 @@ namespace TileMapPrototype
 			if (tileClicked.Value != 0 && SelectedTile == null)
 			{
 				//tileClicked.Value = tileClicked.Value + 1;
-				tileClicked.Background = "Blue";
+				tileClicked.Background = BLUE;
 				SelectedTile = tileClicked;
-				PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, "White");
+				PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, WHITE);
 			}
-			else if ((tileClicked.Value == 0 && tileClicked.Background == "White" && SelectedTile.Value > 1) || (tileClicked.Background == "Blue" && tileClicked != SelectedTile))
+			else if ((tileClicked.Value == 0 && tileClicked.Background == WHITE && SelectedTile.Value > 1) || (tileClicked.Background == BLUE && tileClicked != SelectedTile))
 			{
 				if ((tileClicked.Value == 0))
 				{
 					tileClicked.Value = SelectedTile.Value - 1;
-					tileClicked.Background = "Blue";
+					tileClicked.Background = BLUE;
 					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
 				}
 				else
 				{
 					tileClicked.Value += SelectedTile.Value - 1;
-					tileClicked.Background = "Blue";
+					tileClicked.Background = BLUE;
 					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
 				}
 				SelectedTile = null;
@@ -119,8 +124,8 @@ namespace TileMapPrototype
 		{
 			foreach (var tile in Board)
 			{
-				if (tile.Background != "Blue")
-					tile.Background = "Green";
+				if (tile.Background != BLUE)
+					tile.Background = GREEN;
 			}
 		}
 		private void PaintSurroundingTiles(int column, int row, string color)
@@ -134,7 +139,7 @@ namespace TileMapPrototype
 					if ((x_delta == 0 && y_delta == 0) || !bounds_check(column + x_delta, row + y_delta)) continue;
 					
 					TileModel adjacent_tile = tile_at(column + x_delta, row + y_delta);
-					if (adjacent_tile.Background != "Blue")
+					if (adjacent_tile.Background != BLUE)
 					{
 						surroundingTiles.Add(adjacent_tile);
 						adjacent_tile.Background = color;
