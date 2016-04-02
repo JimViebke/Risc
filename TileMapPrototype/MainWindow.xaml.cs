@@ -132,12 +132,15 @@ namespace TileMapPrototype
 		{
 			List<TileModel> surroundingTiles = new List<TileModel>();
 
+			// for each adjacent tile
 			for (int x_delta = -1; x_delta <= 1; ++x_delta)
 			{
 				for (int y_delta = -1; y_delta <= 1; ++y_delta)
 				{
+					// skip if the tile is the current tile or out of bounds
 					if ((x_delta == 0 && y_delta == 0) || !bounds_check(column + x_delta, row + y_delta)) continue;
 					
+					// save a reference to the tile
 					TileModel adjacent_tile = tile_at(column + x_delta, row + y_delta);
 					if (adjacent_tile.Background != BLUE)
 					{
