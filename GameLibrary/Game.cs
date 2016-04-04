@@ -13,6 +13,9 @@ namespace GameLibrary
         private int board_height = 9;
         private int board_width = 9;
 
+		private List<string> colors = new List<string>() { BLUE, RED, PURPLE, ORANGE };
+		private List<string> players = new List<string>();
+
         public const string BLUE = "Blue";
         public const string RED = "Red";
         public const string PURPLE = "Purple";
@@ -65,6 +68,25 @@ namespace GameLibrary
             Board.ElementAt(72).Value = 10;
             Board.ElementAt(72).Background = BLUE;
         }
+
+		public string new_player()
+		{
+			// for each color that a player can have
+			foreach (string color in colors)
+			{
+				// if the color is not already used
+				if (!players.Contains(color))
+				{
+					// add the player
+					players.Add(color);
+					// send the color to the player
+					return color;
+				}
+			}
+
+			// all colors are used, return an empty string
+			return "";
+		}
 
         public void PaintAllTiles()
         {
