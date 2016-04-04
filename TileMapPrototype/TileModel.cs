@@ -24,10 +24,10 @@ namespace TileMapPrototype
 
                 if (value > 0)
                 {
-                    _background = MainWindow.BLUE;
+                    _background = Game.BLUE;
                     NotifyPropertyChange("Background");
 
-                    _foreground = MainWindow.WHITE;
+                    _foreground = Game.WHITE;
                     NotifyPropertyChange("Foreground");
                 }
             }

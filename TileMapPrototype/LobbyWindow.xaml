@@ -1,0 +1,10 @@
+﻿<Window x:Class="TileMapPrototype.LobbyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LobbyWindow" Height="300" Width="300">
+    <StackPanel>
+        <TextBox Name="tbAddPlayer" Margin="10"></TextBox>
+        <Button Name="btnAddPlayer" Content="Join Game" Margin="10"></Button>
+        <ListBox Name="lbPlayers" Height="170" Margin="10"></ListBox>
+    </StackPanel>
+</Window>
