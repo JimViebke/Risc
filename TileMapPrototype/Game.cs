@@ -14,8 +14,11 @@ namespace TileMapPrototype
         private int board_width = 9;
 
         public const string BLUE = "Blue";
-        public const string GREEN = "Green";
-        public const string WHITE = "White";
+        public const string RED = "Red";
+        public const string PURPLE = "Purple";
+		public const string ORANGE = "Orange";
+		public const string GREEN = "Green"; // reserved for background
+        public const string WHITE = "White"; // reserved for highlights
         public const string TRANSPARENT = "Transparent";
 
         public Game()
