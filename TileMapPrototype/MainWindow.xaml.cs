@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-
+using GameLibrary;
 
 namespace TileMapPrototype
 {
@@ -22,12 +22,6 @@ namespace TileMapPrototype
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        //private List<TileModel> Board { get; set; }
-        //private TileModel SelectedTile { get; set; }
-
-        //private int board_height = 9;
-        //private int board_width = 9;
-
         public const string BLUE = "Blue";
         public const string GREEN = "Green";
         public const string WHITE = "White";

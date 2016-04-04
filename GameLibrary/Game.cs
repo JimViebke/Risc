@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TileMapPrototype
+namespace GameLibrary
 {
     //Game class handles storage of all player objects, and tile objects
-    class Game
+    public class Game
     {
         public List<TileModel> Board { get; set; }
         private int board_height = 9;
