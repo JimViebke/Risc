@@ -10,14 +10,14 @@ namespace GameLibrary
     public class Player : INotifyPropertyChanged
     {
         bool IsTurn { get; set; }
+        int Units { get; set; }
+		string Color { get; set; }
 
-        int Units {get; set;}
-
-        Player() {
+        public Player(string set_color) {
             IsTurn = false;
             Units = 0;
+			Color = set_color;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
