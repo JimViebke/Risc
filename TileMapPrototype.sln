@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileMapPrototype", "TileMapPrototype\TileMapPrototype.csproj", "{5CED508A-02A1-45AB-97F1-2D56B795C723}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{BBC406EC-241B-4414-B41C-EEDC5BEDA336}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5CED508A-02A1-45AB-97F1-2D56B795C723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CED508A-02A1-45AB-97F1-2D56B795C723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CED508A-02A1-45AB-97F1-2D56B795C723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC406EC-241B-4414-B41C-EEDC5BEDA336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC406EC-241B-4414-B41C-EEDC5BEDA336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC406EC-241B-4414-B41C-EEDC5BEDA336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC406EC-241B-4414-B41C-EEDC5BEDA336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

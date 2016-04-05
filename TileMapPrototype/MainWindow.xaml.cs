@@ -34,7 +34,7 @@ namespace TileMapPrototype
 			InitializeComponent();
 
             //Instead of new game, you will be getting it from the service
-            gameInstance = new Game();
+             gameInstance = App.GameInstance;
 
 
 			DataContext = gameInstance.Board;

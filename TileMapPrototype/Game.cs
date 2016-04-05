@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameLibrary
+namespace TileMapPrototype
 {
     //Game class handles storage of all player objects, and tile objects
-    public class Game
+    class Game
     {
         public List<TileModel> Board { get; set; }
-        public List<Player> Players { get; set; }
         private int board_height = 9;
         private int board_width = 9;
 
@@ -24,11 +23,9 @@ namespace GameLibrary
 
         public Game()
         {
-
             var random = new Random();
 
             Board = new List<TileModel>();
-            Players = new List<Player>();
 
             string background = "";
             string foreground = "";

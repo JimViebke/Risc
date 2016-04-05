@@ -5,19 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace GameLibrary
+namespace TileMapPrototype
 {
     public class Player : INotifyPropertyChanged
     {
-        bool IsTurn { get; set; }
-
-        int Units {get; set;}
-
-        Player() {
-            IsTurn = false;
-            Units = 0;
-        }
-
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using GameLibrary;
 namespace TileMapPrototype
 {
     /// <summary>
@@ -13,5 +13,11 @@ namespace TileMapPrototype
     /// </summary>
     public partial class App : Application
     {
+        public static Game GameInstance { get; set; }
+
+        App() {
+            GameInstance = new Game();
+        }
+
     }
 }
