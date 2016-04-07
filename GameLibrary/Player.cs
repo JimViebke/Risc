@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace GameLibrary
 {
+ 
+    [DataContract]
     public class Player : INotifyPropertyChanged
     {
+        [DataMember]
         bool IsTurn { get; set; }
+        [DataMember]
         int Units { get; set; }
+        [DataMember]
 		string Color { get; set; }
 
         public Player(string set_color) {

@@ -3,11 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel;
+using System.Runtime.Serialization;
 
 namespace GameLibrary
 {
+    [DataContract]
+    public class CallbackInfo //Everytime an action occurs
+    {
+        [DataMember]
+        public List<TileModel> Board { get; set; }
+
+        public CallbackInfo(List<TileModel> newBoard)
+        {
+            Board = newBoard;
+        }
+    }
+
+    [ServiceContract]
+    public interface ICallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void UpdateGui(CallbackInfo info);
+    }
+
 	//Game class handles storage of all player objects, and tile objects
-	public class Game
+    [ServiceContract(CallbackContract = typeof(ICallback))]
+    public interface IGame {
+        [OperationContract]
+        Player new_player();
+        [OperationContract]
+        void PaintAllTiles();
+        [OperationContract]
+        void PaintSurroundingTiles(int column, int row, string color);
+        [OperationContract]
+        void do_combat(int attack_column, int attack_row, int defend_column, int defend_row);
+
+        List<TileModel> Board { [OperationContract]get; [OperationContract] set; }
+
+        [OperationContract(IsOneWay = true)]
+        void UnregisterForCallbacks(int id);
+
+        [OperationContract]
+        int RegisterForCallBacks();
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+	public class Game : IGame
 	{
 		public List<TileModel> Board { get; set; }
 		private int board_height = 9;
@@ -16,7 +58,8 @@ namespace GameLibrary
 		private List<string> colors = new List<string>() { BLUE, RED, PURPLE, ORANGE };
 		private List<string> used_colors = new List<string>();
 		public List<Player> players = new List<Player>();
-
+        private Dictionary<int, ICallback> clientCallbacks = new Dictionary<int, ICallback>();
+        int nextCallbackId = 1; 
 		public const string BLUE = "Blue";
 		public const string RED = "Red";
 		public const string PURPLE = "Purple";
@@ -86,7 +129,7 @@ namespace GameLibrary
 					return new_player;
 				}
 			}
-
+            updateAllClients();
 			// the game cannot handle more players
 			return null;
 		}
@@ -98,6 +141,8 @@ namespace GameLibrary
 				if (tile.Background != BLUE)
 					tile.Background = GREEN;
 			}
+
+            updateAllClients();
 		}
 		public void PaintSurroundingTiles(int column, int row, string color)
 		{
@@ -120,6 +165,8 @@ namespace GameLibrary
 					}
 				}
 			}
+
+            updateAllClients();
 		}
 
 		public void do_combat(int attack_column, int attack_row, int defend_column, int defend_row)
@@ -144,10 +191,34 @@ namespace GameLibrary
 			// set tiles to the background color if no units remain
 			if (attack_tile.Value < 1) attack_tile.Background = BACKGROUND;
 			if (defend_tile.Value < 1) defend_tile.Background = BACKGROUND;
+            updateAllClients();
 		}
 
 		private TileModel tile_at(int row, int column) { return Board[(row * board_height) + column]; }
 		private bool bounds_check(int val) { return val >= 0 && val < board_height; }
 		private bool bounds_check(int a, int b) { return bounds_check(a) && bounds_check(b); }
+
+        public int RegisterForCallBacks()
+        {
+            ICallback cb = OperationContext.Current.GetCallbackChannel<ICallback>();
+            clientCallbacks.Add(nextCallbackId, cb);
+
+            return nextCallbackId++;
+        }
+
+        public void UnregisterForCallbacks(int id)
+        {
+            clientCallbacks.Remove(id);
+        }
+
+        private void updateAllClients()
+        {
+            CallbackInfo info = new CallbackInfo(Board);
+
+            foreach (ICallback cb in clientCallbacks.Values)
+            {
+                cb.UpdateGui(info);
+            }
+        }
 	}
 }

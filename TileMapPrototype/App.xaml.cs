@@ -13,10 +13,8 @@ namespace TileMapPrototype
     /// </summary>
     public partial class App : Application
     {
-        public static Game GameInstance { get; set; }
 
         App() {
-            GameInstance = new Game();
         }
 
     }
