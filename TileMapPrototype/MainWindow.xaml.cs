@@ -23,7 +23,7 @@ namespace TileMapPrototype
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
     /// 
-      [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, UseSynchronizationContext = false)]
+    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, UseSynchronizationContext = false)]
 	public partial class MainWindow : Window, ICallback
 	{
         public const string BLUE = "Blue";
@@ -31,21 +31,16 @@ namespace TileMapPrototype
         public const string WHITE = "White";
         public const string TRANSPARENT = "Transparent";
         private TileModel SelectedTile { get; set; }
-        private int myCallbackId = 0;
-        private IGame game = null;
+        //private int myCallbackId = 0;
+        //private IGame game = null;
 
 		public MainWindow()
 		{
-
 			InitializeComponent();
-
             try
             {
-
-                DuplexChannelFactory<IGame> factory = new DuplexChannelFactory<IGame>(this, "GameService");
-                game = factory.CreateChannel();
-                myCallbackId = game.RegisterForCallBacks();
-                DataContext = game.Board;
+               
+                DataContext = App.game.Board;
             }
             catch (Exception ex)
             { 
@@ -60,12 +55,14 @@ namespace TileMapPrototype
 
 
         private delegate void ClientUpdateDelegate(CallbackInfo info);
+
         public void UpdateGui(CallbackInfo info)
         {
             if (System.Threading.Thread.CurrentThread == this.Dispatcher.Thread)
             {
                 // Update the GUI
                 DataContext = info.Board;
+
             }
             else
             {
@@ -82,7 +79,7 @@ namespace TileMapPrototype
 				//tileClicked.Value = tileClicked.Value + 1;
 				tileClicked.Background = BLUE;
 				SelectedTile = tileClicked;
-				game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, WHITE);
+				App.game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, WHITE);
              
 			}
 			else if ((tileClicked.Value == 0 && tileClicked.Background == WHITE && SelectedTile.Value > 1) || (tileClicked.Background == BLUE && tileClicked != SelectedTile))
@@ -101,12 +98,12 @@ namespace TileMapPrototype
                    
 				}
 				SelectedTile = null;
-                game.PaintAllTiles();
+                App.game.PaintAllTiles();
                
 			}
 			else
 			{
-                game.PaintAllTiles();
+                App.game.PaintAllTiles();
                 
 			}
 		}

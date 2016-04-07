@@ -17,7 +17,8 @@ namespace GameLibrary
         string Foreground {get;set; }
         bool IsButtonEnabled { get; set; }
     }
-    [DataContract]
+
+     [DataContract]
      public class TileModel : INotifyPropertyChanged, ITileModel {
         [DataMember]
         public int Row { get; set; }
