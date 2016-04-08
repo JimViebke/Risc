@@ -1,7 +1,8 @@
 ﻿<Window x:Class="TileMapPrototype.LobbyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LobbyWindow" Height="346" Width="300">
+        Title="LobbyWindow" Height="346" Width="300"
+        WindowStartupLocation="CenterScreen">
     <StackPanel>
         <TextBox Height="20" Name="tbAddPlayer" Margin="10"></TextBox>
         <Button Name="btnAddPlayer" Content="Join Game" Margin="10" Click="btnAddPlayer_Click"></Button>
