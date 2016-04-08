@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TileMapPrototype"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000">
+        Title="MainWindow" Height="800" Width="1000"
+        WindowStartupLocation="CenterScreen">
     <DockPanel>
     <ItemsControl DockPanel.Dock="Left" Name="ItemsControl" ItemsSource="{Binding Board}" Width="800">
         <ItemsControl.ItemsPanel>
@@ -21,7 +22,7 @@
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Button  Content="{Binding Value}" VerticalAlignment="Stretch" FontSize="20" Click="Button_Click" Background="{Binding Background}" Foreground="{Binding Foreground}" IsEnabled="{Binding IsButtonEnabled}" />
+                <Button  Content="{Binding Value}" VerticalAlignment="Stretch" FontSize="20" Click="Button_Click" Background="{Binding Background}" Foreground="Black" IsEnabled="{Binding IsButtonEnabled}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
@@ -29,7 +30,12 @@
             <ListBox ItemsSource="{Binding Players}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <ListBoxItem Content="{Binding Name}" Background="{Binding Color}" IsEnabled="False"/>
+                        <StackPanel Width="200"  Background="{Binding Color}">
+                            <TextBlock Text="Name:" IsEnabled="False"/>
+                            <TextBlock Text="{Binding Name}"  IsEnabled="False"/>
+                            <TextBlock Text="Units:"  IsEnabled="False"/>
+                            <TextBlock Text="{Binding Units}" IsEnabled="False"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>        

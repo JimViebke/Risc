@@ -33,9 +33,10 @@ namespace GameLibrary
         bool IsReady { [OperationContract]get; [OperationContract]set; }
     }
 
-	//Game class handles storage of all player objects, and tile objects
+    //Game class handles storage of all player objects, and tile objects
     [ServiceContract(CallbackContract = typeof(ICallback))]
-    public interface IGame {
+    public interface IGame
+    {
         [OperationContract]
         void new_player(string name);
         [OperationContract]
@@ -46,7 +47,10 @@ namespace GameLibrary
         void PaintSurroundingTiles(int column, int row, string color);
         [OperationContract]
         void do_combat(int attack_column, int attack_row, int defend_column, int defend_row);
-
+        [OperationContract]
+        void AddPlayers();
+        [OperationContract]
+        void UpdateTileProperties(int newTileIndex, int oldTileIndex, int value, string color);
         List<TileModel> Board { [OperationContract]get; [OperationContract] set; }
         List<Player> Players { [OperationContract]get; [OperationContract] set; }
         bool GameStart { [OperationContract]get; [OperationContract]set; }
@@ -109,9 +113,9 @@ namespace GameLibrary
                         isButtonEnabled = true;
                     }
 
-
                     Board.Add(new TileModel()
                     {
+                        Index = Board.Count,
                         Row = i,
                         Column = j,
                         Value = 0,
@@ -123,8 +127,6 @@ namespace GameLibrary
                 }
             }
 
-            Board.ElementAt(72).Value = 10;
-            Board.ElementAt(72).Background = BLUE;
         }
 
         public void new_player(string name)
@@ -145,11 +147,38 @@ namespace GameLibrary
             }
         }
 
+        public void AddPlayers()
+        {
+            Board.ElementAt(72).Value = 5;
+            Board.ElementAt(72).Background = Players.ElementAt(0).Color;
+
+            Board.ElementAt(8).Value = 5;
+            Board.ElementAt(8).Background = Players.ElementAt(1).Color;
+
+            if (Players.Count >= 4)
+            {
+                Board.ElementAt(80).Value = 5;
+                Board.ElementAt(80).Background = Players.ElementAt(2).Color;
+
+                Board.ElementAt(0).Value = 5;
+                Board.ElementAt(0).Background = Players.ElementAt(3).Color;
+            }
+            updateAllClients();
+        }
+
+        public void UpdateTileProperties(int newTileIndex, int oldTileIndex, int value, string color)
+        {
+            Board.ElementAt(newTileIndex).Background = color;
+            Board.ElementAt(newTileIndex).Value = value;
+            Board.ElementAt(oldTileIndex).Value = Board.ElementAt(oldTileIndex).Value - Board.ElementAt(oldTileIndex).Value + 1;
+            updateAllClients();
+        }
+
         public void PaintAllTiles()
         {
             foreach (var tile in Board)
             {
-                if (tile.Background != BLUE)
+                if (tile.Value == 0 && tile.Background != "Green")
                     tile.Background = GREEN;
             }
 
@@ -233,9 +262,11 @@ namespace GameLibrary
             }
         }
 
-        public void StartGame(){
+        public void StartGame()
+        {
             GameStart = true;
+            AddPlayers();
             updateAllClients();
         }
-	}
+    }
 }

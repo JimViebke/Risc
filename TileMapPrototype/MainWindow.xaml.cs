@@ -69,29 +69,30 @@ namespace TileMapPrototype
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			TileModel tileClicked = (e.Source as Button).DataContext as TileModel;
-      
-			if (tileClicked.Value != 0 && SelectedTile == null)
+
+            string playerColor = App.game.Players.ElementAt(App.myCallbackId - 1).Color;
+
+
+            if (tileClicked.Value != 0 && SelectedTile == null)
 			{
 				//tileClicked.Value = tileClicked.Value + 1;
-				tileClicked.Background = Game.BLUE;
+				tileClicked.Background = playerColor;
 				SelectedTile = tileClicked;
-				App.game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, Game.WHITE);
+				App.game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, "White");
              
 			}
-			else if ((tileClicked.Value == 0 && tileClicked.Background == Game.WHITE && SelectedTile.Value > 1) || (tileClicked.Background == Game.BLUE && tileClicked != SelectedTile))
+			else if ((tileClicked.Value == 0 && tileClicked.Background == "White" && SelectedTile.Value > 1) || (tileClicked.Background == playerColor && tileClicked != SelectedTile))
 			{
 				if ((tileClicked.Value == 0))
 				{
-					tileClicked.Value = SelectedTile.Value - 1;
-					tileClicked.Background = Game.BLUE;
-					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
+                    App.game.UpdateTileProperties(tileClicked.Index, SelectedTile.Index, SelectedTile.Value - 1, playerColor);
+           
+
 				}
 				else
 				{
-					tileClicked.Value += SelectedTile.Value - 1;
-					tileClicked.Background = Game.BLUE;
-					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
-                   
+                    App.game.UpdateTileProperties(tileClicked.Index, SelectedTile.Index, (SelectedTile.Value - 1) + tileClicked.Value, playerColor);
+                   SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;  
 				}
 				SelectedTile = null;
                 App.game.PaintAllTiles();

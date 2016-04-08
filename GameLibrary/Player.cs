@@ -13,17 +13,17 @@ namespace GameLibrary
     public class Player : INotifyPropertyChanged
     {
         [DataMember]
-        bool IsTurn { get; set; }
+        public bool IsTurn { get; set; }
         [DataMember]
-        int Units { get; set; }
+        public  int Units { get; set; }
         [DataMember]
-		string Color { get; set; }
+		public string Color { get; set; }
         [DataMember]
         public string Name { get; set; }
 
         public Player(string set_color, string name) {
             IsTurn = false;
-            Units = 0;
+            Units = 5;
 			Color = set_color;
             Name = name;
         }

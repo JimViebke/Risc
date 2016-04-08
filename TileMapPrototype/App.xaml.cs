@@ -73,8 +73,10 @@ namespace TileMapPrototype
                     lobbyWindow.Close();
 
                     // Update the GUI
+                   
                     mainWindow.Show();
                 }
+
                 mainWindow.DataContext = info;
             }
             else

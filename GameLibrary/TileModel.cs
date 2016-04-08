@@ -8,22 +8,27 @@ using System.Runtime.Serialization;
 
 namespace GameLibrary
 {
-    
-    public interface ITileModel {
-        int Row { get;set; }
+
+    public interface ITileModel
+    {
+        int Row { get; set; }
         int Column { get; set; }
-        int Value { get;set; }
-        string Background {get; set; }
-        string Foreground {get;set; }
+        int Value { get; set; }
+        int Index { get; set; }
+        string Background { get; set; }
+        string Foreground { get; set; }
         bool IsButtonEnabled { get; set; }
     }
 
-     [DataContract]
-     public class TileModel : INotifyPropertyChanged, ITileModel {
+    [DataContract]
+    public class TileModel : INotifyPropertyChanged, ITileModel
+    {
         [DataMember]
         public int Row { get; set; }
         [DataMember]
         public int Column { get; set; }
+        [DataMember]
+        public int Index { get; set; }
 
         private int _value;
 
@@ -35,15 +40,6 @@ namespace GameLibrary
             {
                 _value = value;
                 NotifyPropertyChange("Value");
-
-                if (value > 0)
-                {
-                    _background = Game.BLUE;
-                    NotifyPropertyChange("Background");
-
-                    _foreground = Game.WHITE;
-                    NotifyPropertyChange("Foreground");
-                }
             }
         }
 
@@ -60,7 +56,7 @@ namespace GameLibrary
         }
 
         private string _foreground;
-         [DataMember]
+        [DataMember]
         public string Foreground
         {
             get { return _foreground; }
@@ -72,7 +68,7 @@ namespace GameLibrary
         }
 
         private bool _isButtonEnabled;
-         [DataMember]
+        [DataMember]
         public bool IsButtonEnabled
         {
             get { return _isButtonEnabled; }

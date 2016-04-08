@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileMapPrototype", "TileMapPrototype\TileMapPrototype.csproj", "{5CED508A-02A1-45AB-97F1-2D56B795C723}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClient", "TileMapPrototype\GameClient.csproj", "{5CED508A-02A1-45AB-97F1-2D56B795C723}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{BBC406EC-241B-4414-B41C-EEDC5BEDA336}"
 EndProject
