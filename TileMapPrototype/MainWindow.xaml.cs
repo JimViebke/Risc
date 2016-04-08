@@ -26,10 +26,6 @@ namespace TileMapPrototype
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, UseSynchronizationContext = false)]
 	public partial class MainWindow : Window
 	{
-        public const string BLUE = "Blue";
-        public const string GREEN = "Green";
-        public const string WHITE = "White";
-        public const string TRANSPARENT = "Transparent";
         private TileModel SelectedTile { get; set; }
         //private int myCallbackId = 0;
         //private IGame game = null;
@@ -77,23 +73,23 @@ namespace TileMapPrototype
 			if (tileClicked.Value != 0 && SelectedTile == null)
 			{
 				//tileClicked.Value = tileClicked.Value + 1;
-				tileClicked.Background = BLUE;
+				tileClicked.Background = Game.BLUE;
 				SelectedTile = tileClicked;
-				App.game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, WHITE);
+				App.game.PaintSurroundingTiles(tileClicked.Row, tileClicked.Column, Game.WHITE);
              
 			}
-			else if ((tileClicked.Value == 0 && tileClicked.Background == WHITE && SelectedTile.Value > 1) || (tileClicked.Background == BLUE && tileClicked != SelectedTile))
+			else if ((tileClicked.Value == 0 && tileClicked.Background == Game.WHITE && SelectedTile.Value > 1) || (tileClicked.Background == Game.BLUE && tileClicked != SelectedTile))
 			{
 				if ((tileClicked.Value == 0))
 				{
 					tileClicked.Value = SelectedTile.Value - 1;
-					tileClicked.Background = BLUE;
+					tileClicked.Background = Game.BLUE;
 					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
 				}
 				else
 				{
 					tileClicked.Value += SelectedTile.Value - 1;
-					tileClicked.Background = BLUE;
+					tileClicked.Background = Game.BLUE;
 					SelectedTile.Value = SelectedTile.Value - SelectedTile.Value + 1;
                    
 				}
