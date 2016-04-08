@@ -24,7 +24,7 @@ namespace TileMapPrototype
 	/// </summary>
     /// 
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, UseSynchronizationContext = false)]
-	public partial class MainWindow : Window, ICallback
+	public partial class MainWindow : Window
 	{
         public const string BLUE = "Blue";
         public const string GREEN = "Green";

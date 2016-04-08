@@ -27,17 +27,25 @@ namespace TileMapPrototype
     {
         public static int myCallbackId = 0;
         public static IGame game = null;
+        public  bool IsReady { get; set; }
         private MainWindow mainWindow;
-
+        private LobbyWindow lobbyWindow;
         App() {
+        
             DuplexChannelFactory<IGame> factory = new DuplexChannelFactory<IGame>(this, "GameService");
             game = factory.CreateChannel();
             myCallbackId = game.RegisterForCallBacks();
-
-            // Create the ViewModel and expose it using the View's DataContext
+            IsReady = false;
             mainWindow = new MainWindow();
-           
-            mainWindow.Show();
+            lobbyWindow = new LobbyWindow();
+
+            if (myCallbackId != 1)
+            {
+                lobbyWindow.btnStart.IsEnabled = false;
+            }
+
+            lobbyWindow.Show();
+            // mainWindow.Show();
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
@@ -49,12 +57,25 @@ namespace TileMapPrototype
         private delegate void ClientUpdateDelegate(CallbackInfo info);
         public void UpdateGui(CallbackInfo info)
         {
-
             if (System.Threading.Thread.CurrentThread == this.Dispatcher.Thread)
             {
-                // Update the GUI
-                mainWindow.DataContext = info.Board;
 
+                if (info.GameStart != true)
+                {
+                    lobbyWindow.lbPlayers.Items.Clear();
+                    foreach (Player player in info.Players)
+                    {
+                        lobbyWindow.lbPlayers.Items.Add(player.Name);
+                    }
+                }
+                else if(info.GameStart == true)
+                {
+                    lobbyWindow.Close();
+
+                    // Update the GUI
+                    mainWindow.Show();
+                }
+                mainWindow.DataContext = info;
             }
             else
             {

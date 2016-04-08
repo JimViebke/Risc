@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TileMapPrototype"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800">
-    <ItemsControl ItemsSource="{Binding}">
+        Title="MainWindow" Height="800" Width="1000">
+    <DockPanel>
+    <ItemsControl DockPanel.Dock="Left" Name="ItemsControl" ItemsSource="{Binding Board}" Width="800">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <UniformGrid Rows="9" Columns="9"/>
@@ -20,8 +21,18 @@
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Button Content="{Binding Value}" VerticalAlignment="Stretch" FontSize="20" Click="Button_Click" Background="{Binding Background}" Foreground="{Binding Foreground}" IsEnabled="{Binding IsButtonEnabled}" />
+                <Button  Content="{Binding Value}" VerticalAlignment="Stretch" FontSize="20" Click="Button_Click" Background="{Binding Background}" Foreground="{Binding Foreground}" IsEnabled="{Binding IsButtonEnabled}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
+    <StackPanel DockPanel.Dock="Right" Width="200">
+            <ListBox ItemsSource="{Binding Players}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ListBoxItem Content="{Binding Name}" Background="{Binding Color}" IsEnabled="False"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>        
+    </StackPanel>
+    </DockPanel>
 </Window>

@@ -19,9 +19,34 @@ namespace TileMapPrototype
     /// </summary>
     public partial class LobbyWindow : Window
     {
+        public bool readyStatus = false;
+
         public LobbyWindow()
         {
             InitializeComponent();
+            DataContext = App.game.Players;
+        }
+
+        private void btnAddPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.game.new_player(tbAddPlayer.Text);
+                btnAddPlayer.IsEnabled = false;
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void btnReady_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.game.StartGame();
+                this.IsEnabled = false;
+            }
+            catch (Exception ex)
+            { }
         }
     }
 }
